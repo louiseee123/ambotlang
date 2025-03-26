@@ -1,22 +1,277 @@
-/* Ensure the navbar spans the full width of the screen */
-.custom-navbar {
-  width: 100%;
-  padding-left: 0;
-  padding-right: 0;
+/* ===== BASE STYLES ===== */
+:root {
+  --primary: #3498db;
+  --primary-dark: #2980b9;
+  --accent: #e74c3c;
+  --dark: #2c3e50;
+  --light: #ecf0f1;
+  --gray: #95a5a6;
+  --light-gray: #f9f9f9;
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s ease;
 }
 
-/* Remove default padding from the container-fluid */
-.container-fluid {
-  padding-left: 0;
-  padding-right: 0;
+/* ===== NAVBAR CONTAINER ===== */
+.navbar {
+  background-color: white;
+  padding: 1rem 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  transition: var(--transition);
 }
 
-/* Ensure the navbar content spans the full width */
+.navbar-scrolled {
+  box-shadow: var(--shadow);
+  padding: 0.5rem 0;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ===== BRANDING ===== */
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--dark);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.brand-icon {
+  margin-right: 0.5rem;
+  color: var(--primary);
+  font-size: 1.8rem;
+}
+
+.brand-name {
+  color: var(--dark);
+}
+
+/* ===== MOBILE TOGGLE ===== */
+.navbar-toggle {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--dark);
+  cursor: pointer;
+  display: none;
+  z-index: 1001;
+}
+
+/* ===== NAVIGATION ITEMS ===== */
 .navbar-collapse {
-  width: 100%;
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-between;
+  align-items: center;
 }
 
-/* Optional: Add a border or shadow for better visual separation */
-.custom-navbar {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.navbar-nav {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item {
+  margin: 0 0.5rem;
+}
+
+.nav-link {
+  color: var(--dark);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: var(--transition);
+  display: block;
+  position: relative;
+  cursor: pointer;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--primary);
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 1rem;
+  right: 1rem;
+  height: 2px;
+  background: var(--primary);
+}
+
+/* ===== SEARCH & USER CONTROLS ===== */
+.navbar-controls {
+  display: flex;
+  align-items: center;
+}
+
+.search-form {
+  margin-right: 1.5rem;
+  position: relative;
+}
+
+.search-input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 1rem;
+  color: var(--gray);
+}
+
+.search-input {
+  padding: 0.5rem 1rem 0.5rem 2.5rem;
+  border: 1px solid #ddd;
+  border-radius: 50px;
+  width: 200px;
+  transition: var(--transition);
+  font-size: 0.9rem;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+  width: 250px;
+}
+
+.clear-search {
+  position: absolute;
+  right: 0.8rem;
+  background: none;
+  border: none;
+  color: var(--gray);
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.user-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.notification-btn, .user-btn {
+  background: none;
+  border: none;
+  color: var(--dark);
+  font-size: 1.2rem;
+  cursor: pointer;
+  position: relative;
+  transition: var(--transition);
+}
+
+.notification-btn:hover, .user-btn:hover {
+  color: var(--primary);
+  transform: scale(1.1);
+}
+
+.notification-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: var(--accent);
+  color: white;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  font-size: 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===== MOBILE RESPONSIVENESS ===== */
+@media (max-width: 992px) {
+  .navbar-toggle {
+    display: block;
+  }
+
+  .navbar-collapse {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: white;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    z-index: 1000;
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: var(--transition);
+  }
+
+  .mobile-menu-open {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .navbar-nav {
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+
+  .nav-item {
+    margin: 0.5rem 0;
+  }
+
+  .navbar-controls {
+    flex-direction: column;
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .search-form {
+    margin-right: 0;
+    margin-bottom: 1.5rem;
+    width: 100%;
+  }
+
+  .search-input {
+    width: 100%;
+  }
+
+  .search-input:focus {
+    width: 100%;
+  }
+}
+.brand-link {
+  display: flex;
+  align-items: center;
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Active link styling */
+.nav-link.active {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* Mobile menu active state */
+.mobile-menu-open {
+  display: flex;
 }
